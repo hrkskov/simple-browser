@@ -1,0 +1,9 @@
+[workspace]
+members = ["sb_core"]
+
+[package]
+name = "simple_browser"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
