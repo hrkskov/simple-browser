@@ -17,3 +17,7 @@
 [working-directory('simple_browser/sb_core')]
 @test-core:
     cargo test
+
+[working-directory('simple_browser/sb_core')]
+@lint-core:
+    cargo clippy -- -D warnings

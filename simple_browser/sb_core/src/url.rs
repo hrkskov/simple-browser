@@ -23,6 +23,26 @@ impl Url {
         }
     }
 
+    pub fn get_url(&self) -> String {
+        self.url.clone()
+    }
+
+    pub fn get_host(&self) -> String {
+        self.host.clone()
+    }
+
+    pub fn get_port(&self) -> String {
+        self.port.clone()
+    }
+
+    pub fn get_path(&self) -> String {
+        self.path.clone()
+    }
+
+    pub fn get_searchpart(&self) -> String {
+        self.searchpart.clone()
+    }
+
     /**
      * parses the URL and fills in the fields of the Url struct.
      * We assume the URL is of the form: http://host:port/path?searchpart
@@ -122,10 +142,53 @@ mod tests {
     fn test_url_parse_valid() {
         let url_str = "http://example.com:8080/path?query=1".to_string();
         let mut url = Url::new(url_str);
-        let parsed_url = url.parse().unwrap();
-        assert_eq!(parsed_url.host, "example.com");
-        assert_eq!(parsed_url.port, "8080");
-        assert_eq!(parsed_url.path, "path");
-        assert_eq!(parsed_url.searchpart, "query=1");
+        let expected = Ok(Url {
+            url: "http://example.com:8080/path?query=1".to_string(),
+            host: "example.com".to_string(),
+            port: "8080".to_string(),
+            path: "path".to_string(),
+            searchpart: "query=1".to_string(),
+        });
+
+        assert_eq!(url.parse(), expected);
+    }
+
+    #[test]
+    fn test_get_url() {
+        let url_str = "http://example.com:8080/path?query=1".to_string();
+        let url = Url::new(url_str.clone());
+        assert_eq!(url.get_url(), url_str);
+    }
+
+    #[test]
+    fn test_get_host() {
+        let url_str = "http://example.com:8080/path?query=1".to_string();
+        let mut url = Url::new(url_str);
+        url.parse().unwrap();
+        assert_eq!(url.get_host(), "example.com");
+    }
+
+    #[test]
+    fn test_get_port() {
+        let url_str = "http://example.com:8080/path?query=1".to_string();
+        let mut url = Url::new(url_str);
+        url.parse().unwrap();
+        assert_eq!(url.get_port(), "8080");
+    }
+
+    #[test]
+    fn test_get_path() {
+        let url_str = "http://example.com:8080/path?query=1".to_string();
+        let mut url = Url::new(url_str);
+        url.parse().unwrap();
+        assert_eq!(url.get_path(), "path");
+    }
+
+    #[test]
+    fn test_get_searchpart() {
+        let url_str = "http://example.com:8080/path?query=1".to_string();
+        let mut url = Url::new(url_str);
+        url.parse().unwrap();
+        assert_eq!(url.get_searchpart(), "query=1");
     }
 }
