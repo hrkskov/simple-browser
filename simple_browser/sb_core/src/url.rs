@@ -191,4 +191,22 @@ mod tests {
         url.parse().unwrap();
         assert_eq!(url.get_searchpart(), "query=1");
     }
+
+    #[test]
+    fn test_url_parse_no_scheme() {
+        let url_str = "example.com:8080/path?query=1".to_string();
+        let mut url = Url::new(url_str);
+        let expected = Err("Unsupported URL scheme".to_string());
+
+        assert_eq!(url.parse(), expected);
+    }
+
+    #[test]
+    fn test_url_unsupported_scheme() {
+        let url_str = "https://example.com:8080/path?query=1".to_string();
+        let mut url = Url::new(url_str);
+        let expected = Err("Unsupported URL scheme".to_string());
+
+        assert_eq!(url.parse(), expected);
+    }
 }
