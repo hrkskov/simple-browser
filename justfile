@@ -1,10 +1,10 @@
 [working-directory('simple_browser')]
 @run:
-    cargo run
+    cargo run --target x86_64-unknown-uefi
 
 [working-directory('simple_browser')]
 @build:
-    cargo build --release
+    cargo build --release --target x86_64-unknown-uefi
 
 [working-directory('simple_browser')]
 @test:
@@ -20,4 +20,8 @@
 
 [working-directory('simple_browser/sb_core')]
 @lint-core:
+    cargo clippy -- -D warnings
+
+[working-directory('simple_browser/net/wasabi')]
+@lint-net:
     cargo clippy -- -D warnings
