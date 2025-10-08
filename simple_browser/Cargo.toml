@@ -1,9 +1,23 @@
 [workspace]
-members = ["sb_core"]
+members = ["net/wasabi", "sb_core"]
 
 [package]
+authors = ["hrks"]
 name = "simple_browser"
 version = "0.1.0"
 edition = "2024"
+default-run = "saba"
+
+[features]
+default = ["wasabi"]
+wasabi = ["dep:net_wasabi", "dep:noli"]
+
+[[bin]]
+name = "saba"
+path = "src/main.rs"
+required-features = ["wasabi"]
 
 [dependencies]
+sb_core = { path = "./sb_core" }
+net_wasabi = { path = "./net/wasabi", optional = true }
+noli = { git = "https://github.com/hikalium/wasabi.git", branch = "for_saba", optional = true }
