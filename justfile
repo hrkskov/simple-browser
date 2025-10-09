@@ -25,3 +25,7 @@
 [working-directory('simple_browser/net/wasabi')]
 @lint-net:
     cargo clippy -- -D warnings
+
+[working-directory('simple_server')]
+@serve:
+    python3 -m http.server 8000
