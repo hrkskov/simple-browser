@@ -1,10 +1,10 @@
 [working-directory('simple_browser')]
 @run:
-    cargo run --target x86_64-unknown-uefi
+    cargo run --target
 
 [working-directory('simple_browser')]
 @build:
-    cargo build --release --target x86_64-unknown-uefi
+    cargo build --release
 
 [working-directory('simple_browser')]
 @test:

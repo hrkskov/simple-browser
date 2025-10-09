@@ -111,3 +111,6 @@ result-*
 
 # Ignore automatically generated direnv output
 .direnv
+
+# Wasabi
+build

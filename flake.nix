@@ -26,8 +26,9 @@
       {
         devShells.default = pkgs.mkShell {
           packages = [
-            (pkgs.rust-bin.nightly.latest.default.override {
+            (pkgs.rust-bin.nightly."2024-01-01".default.override {
               extensions = [ "rust-src" ];
+              targets = [ "x86_64-unknown-none" ];
             })
             pkgs.rustup
             pkgs.just
