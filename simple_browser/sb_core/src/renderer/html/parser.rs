@@ -156,7 +156,7 @@ impl HtmlParser {
                         }
                         Some(HtmlToken::StartTag {
                             ref tag,
-                            _self_closing,
+                            self_closing,
                             ref attributes,
                         }) => {
                             if tag == "body" {
@@ -180,7 +180,7 @@ impl HtmlParser {
                     match token {
                         Some(HtmlToken::StartTag {
                             ref tag,
-                            _self_closing,
+                            self_closing,
                             ref attributes,
                         }) => match tag.as_str() {
                             "p" => {

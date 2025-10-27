@@ -148,7 +148,7 @@ impl Element {
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ElementKind {
     /// https://html.spec.whatwg.org/multipage/semantics.html#the-html-element
     Html,
