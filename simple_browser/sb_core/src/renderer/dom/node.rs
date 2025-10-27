@@ -9,7 +9,7 @@ use core::str::FromStr;
 
 #[derive(Debug, Clone)]
 pub struct Node {
-    pub Kind: NodeKind,
+    pub kind: NodeKind,
     window: Weak<RefCell<Window>>,
     parent: Weak<RefCell<Node>>,
     firest_child: Option<Rc<RefCell<Node>>>,
@@ -21,7 +21,7 @@ pub struct Node {
 impl Node {
     pub fn new(kind: NodeKind) -> Self {
         Self {
-            Kind: kind,
+            kind: kind,
             window: Weak::new(),
             parent: Weak::new(),
             firest_child: None,
@@ -32,18 +32,18 @@ impl Node {
     }
 
     pub fn kind(&self) -> NodeKind {
-        self.Kind.clone()
+        self.kind.clone()
     }
 
     pub fn get_element(&self) -> Option<Element> {
-        match self.Kind {
+        match self.kind {
             NodeKind::Document | NodeKind::Text(_) => None,
             NodeKind::Element(ref e) => Some(e.clone()),
         }
     }
 
     pub fn element_kind(&self) -> Option<ElementKind> {
-        match self.Kind {
+        match self.kind {
             NodeKind::Document | NodeKind::Text(_) => None,
             NodeKind::Element(ref e) => Some(e.kind()),
         }
@@ -122,6 +122,10 @@ impl Window {
 
         window
     }
+
+    pub fn document(&self) -> Rc<RefCell<Node>> {
+        self.document.clone()
+    }
 }
 
 /// https://dom.spec.whatwg.org/#interface-element
@@ -156,6 +160,13 @@ pub enum ElementKind {
     Script,
     /// https://html.spec.whatwg.org/multipage/semantics.html#the-body-element
     Body,
+    /// https://html.spec.whatwg.org/multipage/semantics.html#the-p-element
+    P,
+    /// https://html.spec.whatwg.org/multipage/semantics.html#the-h1,-h2,-h3,-h4,-h5,-and-h6-element
+    H1,
+    H2,
+    /// https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-a-element
+    A,
 }
 
 impl FromStr for ElementKind {
@@ -168,6 +179,10 @@ impl FromStr for ElementKind {
             "style" => Ok(ElementKind::Style),
             "script" => Ok(ElementKind::Script),
             "body" => Ok(ElementKind::Body),
+            "p" => Ok(ElementKind::P),
+            "h1" => Ok(ElementKind::H1),
+            "h2" => Ok(ElementKind::H2),
+            "a" => Ok(ElementKind::A),
             _ => Err(format!("unimplemented element name {:?}", s)),
         }
     }
