@@ -1,2 +1,3 @@
+pub mod dom;
 pub mod html;
-mod dom;
+pub mod page;
